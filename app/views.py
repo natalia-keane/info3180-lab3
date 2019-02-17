@@ -5,9 +5,13 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
+from app import app, mail
+from flask_wtf import FlaskForm
 from flask import render_template, request, redirect, url_for, flash
-
+from wtforms import StringField
+from wtforms.validators import validate_on_submit
+from flask_mail import Message
+from forms import MyForm
 
 ###
 # Routing for your application.
@@ -17,6 +21,28 @@ from flask import render_template, request, redirect, url_for, flash
 def home():
     """Render website's home page."""
     return render_template('home.html')
+
+@app.route('/contact', methods=['GET','POST'])
+def contact():
+    form = MyForm()
+    if request.method=='POST':
+        print form.validate_on_submit()
+        if form.validate_on_submit():
+            subject=form.subject.data
+            message=form.messages.data
+            name=form.name.data
+            email=form.mail.data
+            msg = Message(subject, sender=(name, email),recipients=["5cdff05009-1769d0@inbox.mailtrap.io"])
+            msg.body = message
+            mail.send(msg)
+            flash('Successfully sent email.')
+            return redirect(url_for('home'))
+        else:
+            return render_template('contact.html', form = form)
+
+    else:
+        return render_template('contact.html', form = form)
+
 
 
 @app.route('/about/')
