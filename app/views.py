@@ -9,9 +9,9 @@ from app import app, mail
 from flask_wtf import FlaskForm
 from flask import render_template, request, redirect, url_for, flash
 from wtforms import StringField
-from wtforms.validators import validate_on_submit
+from wtforms.validators import DataRequired
 from flask_mail import Message
-from forms import MyForm
+from .forms import ContactForm
 
 ###
 # Routing for your application.
@@ -24,14 +24,13 @@ def home():
 
 @app.route('/contact', methods=['GET','POST'])
 def contact():
-    form = MyForm()
+    form = ContactForm()
     if request.method=='POST':
-        print form.validate_on_submit()
         if form.validate_on_submit():
             subject=form.subject.data
-            message=form.messages.data
+            message=form.message.data
             name=form.name.data
-            email=form.mail.data
+            email=form.email.data
             msg = Message(subject, sender=(name, email),recipients=["5cdff05009-1769d0@inbox.mailtrap.io"])
             msg.body = message
             mail.send(msg)

@@ -10,20 +10,20 @@
 
 
  <div>
- <label for="Name"><h5>{{ form.Name.label }}<font color=#BA2C48>(Required)</font></h5><br>
+ <label for="Name"><h5>{{ form.name.label }}<font color=#BA2C48>(Required)</font></h5><br>
  Please enter your full name<br>
 </label>
 <br>
- {{ form.Name() }}
+ {{ form.name() }}
 </div><br><br>
 
 
 <div>
-<label for="mail"><h5>{{ form.mail.label }}<font color=#BA2C48>(Required)</font></h5><br>
+<label for="mail"><h5>{{ form.email.label }}<font color=#BA2C48>(Required)</font></h5><br>
 Please enter your e-mail address.<br>
 </label>
 <br>
-{{ form.mail() }}
+{{ form.email() }}
 </div><br><br>
 
 
@@ -37,11 +37,11 @@ Please enter the subject for your message.<br>
 
 
 <div>
-<label for="msg"><h5>{{ form.messages.label }}<font color=#BA2C48>(Required)</font></h5><br>
+<label for="msg"><h5>{{ form.message.label }}<font color=#BA2C48>(Required)</font></h5><br>
 Please enter the message you would like to send.<br>
 </label>
 <br>
-{{ form.messages(cols="40", rows="6") }}
+{{ form.message(cols="40", rows="5") }}
 </div><br><br>
 
 
